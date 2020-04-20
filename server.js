@@ -2,20 +2,22 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const cors = require('cors');
-const creds = require('./config');
 const port = process.env.PORT || 5000;
 require ('dotenv').config();
 
+let user = process.env.USER
+let email = process.env.PASS
 let transport = {
     host: 'smtp.gmail.com', 
     port: 587,
     secure: false,
     requireTLS: true,
     auth: {
-    user: process.env.USER,
-    pass: process.env.PASS
+    user: user,
+    pass: email
   }
 }
+
 
 let transporter = nodemailer.createTransport(transport)
 
@@ -39,20 +41,20 @@ router.post('/api/contact', (req, res, next) => {
     console.log(content)
 
     let mail = {
-        to: creds.USER, // Client Email
-        subject: creds.USER,
+        to: user, // Client Email
+        subject: user,
         html: content,
         dsn: {
             id: 'Fail Mail',
             return: 'headers',
             notify: ['failure', 'delay'],
-            recipient: creds.USER
+            recipient: user
         },
         dsn: {
             id: 'Success Mail',
             return: 'headers',
             notify: 'success',
-            recipient: creds.USER
+            recipient: user
         }
     }
 
@@ -70,7 +72,7 @@ router.post('/api/contact', (req, res, next) => {
     })
 
     transporter.sendMail({
-    	from: creds.USER, // Host email
+    	from: user, // Host email
     	to: contact.email,
     	subject: "Eastside Wedding Videography",
         html: `
