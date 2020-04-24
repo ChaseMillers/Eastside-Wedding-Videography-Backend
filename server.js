@@ -36,7 +36,7 @@ router.post('/api/contact', (req, res, next) => {
         Email: ${contact.email}<br/> 
         Phone: ${contact.phone}<br/>
         How did you hear about us?: ${contact.how}<br/> 
-        Venuw/Locations: ${contact.location}<br/> 
+        Venue/Locations: ${contact.location}<br/> 
         Message: ${contact.message} `
     console.log(content)
 
